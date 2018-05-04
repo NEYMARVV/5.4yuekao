@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+    <meta name="format-detection" content="telphone=no, email=no,address=no" >
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+</head>
+<body>
+    <div class="wrap2">
+        <header id="" class="header2">
+            <a href="index.html" class="l-i"><i class="icon iconfont">&#xe653;</i></a>
+            <div class="btn">
+                <span class="btn1">商品</span>
+                <span>详情</span>
+            </div>
+            <a href="" class="r-i"><i class="icon iconfont">&#xe729;</i></a>
+        </header><!-- /header -->
+        <section class="content2">
+            <div class="sp">
+                <!-- <img src="img/1.png" alt="">
+                <div class="list-tit">
+                    <h2>透气蚕丝四件套</h2>
+                    <span class="span1">柔滑兰精天丝,清凉亲肤保湿</span>
+                    <span class="span2">$499</span>
+                </div>
+                <div class="jf">
+                    <p>积分：购买最多可得99999积分</p>
+                </div>
+                <ul class="xq-list">
+                    <li><span>适用季节</span>11111111</li>
+                    <li><span>款式样式</span>111111111</li>
+                    <li><span>尺寸</span>1111111111</li>
+                </ul> -->
+            </div>
+        </section>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/handlebars.js"></script>
+    <script type="text/x-handlebars-template"  id="xq">
+            <img src="{{img}}" alt="">
+            <div class="list-tit">
+                <h2>{{tit}}</h2>
+                <span class="span1">{{span}}</span>
+                <span class="span2">{{mon}}</span>
+            </div>
+            <div class="jf">
+                <p>{{jf}}</p>
+            </div>
+            <ul class="xq-list">
+                <li><span>适用季节</span>{{jijie}}</li>
+                <li><span>款式样式</span>{{kuanshi}}</li>
+                <li><span>尺寸</span>{{size}}</li>
+            </ul>
+    </script>
+    <script>
+        var id = window.location.search.split("?")[1].split('=')[1];
+        console.log(id)
+        $.ajax({
+            url:"/login",
+            success:function(obj){
+                $.each(obj.data2,function(i,v){
+                    console.log(v)
+                    if(id==v.id){
+                        console.log(v)
+                        var t = $('#xq').html();
+                        var template = Handlebars.compile(t);
+                        var html = template(v);
+                        $('.sp').html(html);
+                    }
+                })
+
+                $('.btn').on('click','span',function(){
+                    if($(this).index() == 1){
+                         $('.sp').removeClass("yi2").addClass('yi');
+                        $(this).addClass('btn1').siblings().removeClass("btn1");
+
+                    }else{
+                         $('.sp').removeClass("yi").addClass('yi2');
+                        $(this).addClass('btn1').siblings().removeClass("btn1")
+                    }
+                })
+            }
+        })
+    </script>
+</body>
+</html>

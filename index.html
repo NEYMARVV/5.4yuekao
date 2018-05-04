@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+    <meta name="format-detection" content="telphone=no, email=no,address=no" >
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <link rel="stylesheet" type="text/css" href="js/swiper-3.4.2.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+</head>
+<body>
+    <div class="wrap">
+        <header id="header" class="header">
+            <a href="" class="l-i"><i class="icon iconfont">&#xe653;</i></a>
+            <h1>居家</h1>
+            <a href="" class="r-i"><i class="icon iconfont">&#xe729;</i></a>
+        </header><!-- /header -->
+        <div class="tab">
+            <!-- <span>床品套件</span>
+            <span>被子枕头</span>
+            <span>家具</span>
+            <span>收纳</span>
+            <span>装饰</span> -->
+        </div>
+        <section class="content">
+            <div class="ban swiper-container">
+                <div class="hua swiper-wrapper">
+                    <!-- <div class="kuai swiper-slide"> -->
+                        <!-- <div class="tit">
+                            <div class="t-tit">
+                                <img src="img/1.png" alt="">
+                            </div>
+                            <div class="b-tit">
+                                <h2>透气蚕丝四件套</h2>
+                                <span>￥499</span>
+                            </div>
+                        </div>
+                        <div class="tit">
+                            <div class="t-tit">
+                                <img src="img/1.png" alt="">
+                            </div>
+                            <div class="b-tit">
+                                <h2>透气蚕丝四件套</h2>
+                                <span>￥499</span>
+                            </div>
+                        </div>
+                        <div class="tit">
+                            <div class="t-tit">
+                                <img src="img/1.png" alt="">
+                            </div>
+                            <div class="b-tit">
+                                <h2>透气蚕丝四件套</h2>
+                                <span>￥499</span>
+                            </div>
+                        </div>
+                        <div class="tit">
+                            <div class="t-tit">
+                                <img src="img/1.png" alt="">
+                            </div>
+                            <div class="b-tit">
+                                <h2>透气蚕丝四件套</h2>
+                                <span>￥499</span>
+                            </div>
+                        </div> -->
+                    <!-- </div> -->
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/swiper-3.4.2.min.js"></script>
+    <script src="js/handlebars.js"></script>
+    <script type="text/x-handlebars-template"  id="tab">
+        {{#each this}}
+            <span>{{name}}</span>
+        {{/each}}
+    </script>
+    <script type="text/x-handlebars-template"  id="sli">
+        {{#each this}}
+            <div class="kuai swiper-slide">
+                    {{#each this.cont}}
+                        <a class="k" href="xiangqing.html?id={{id}}">
+                            <div class="tit">
+                                <div class="t-tit">
+                                    <img src="{{img}}" alt="">
+                                </div>
+                                <div class="b-tit">
+                                    <h2>{{tit}}</h2>
+                                    <span>{{mon}}</span>
+                                </div>
+                            </div>
+                        </a>
+                    {{/each}}
+            </div>
+        {{/each}}
+    </script>
+    <script>
+
+        $.ajax({
+            url:"/login",
+            success:function(obj){
+                var t = $('#tab').html();
+                var template = Handlebars.compile(t);
+                var html = template(obj.data);
+                $('.tab').html(html);
+
+                var t2 = $('#sli').html();
+                var template2 = Handlebars.compile(t2);
+                var html2 = template2(obj.data);
+                $('.hua').html(html2);
+
+
+                var mys = new Swiper('.ban',{
+                })
+                $('.tab').on('click','span',function(){
+                    var ind = $(this).index();
+                    mys.slideTo(ind,1000,false)
+                })
+
+
+            }
+        })
+    </script>
+</body>
+</html>
